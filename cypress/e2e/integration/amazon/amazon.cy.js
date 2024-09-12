@@ -10,10 +10,10 @@ describe("Automate the process of opening Amazon.in",()=>{
         cy.wait(6000)
         amazonLogin.clickSignInButton()
         amazonLogin.clickOnEmailLabel()
-        amazonLogin.enterEmail("8088180079")
+        amazonLogin.enterEmail("**********") //use your email or phone no
         amazonLogin.clickOnContinueButton()
         amazonLogin.clickOnPasswordLabel()
-        amazonLogin.enterPassword("Jeevan@1")
+        amazonLogin.enterPassword("*******") // use your password
         amazonLogin.clickOnSignInButton()
         amazonHomePage.verifyPageTitle()
         amazonHomePage.clickOnSearchBar()
