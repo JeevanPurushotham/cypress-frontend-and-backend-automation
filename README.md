@@ -20,12 +20,12 @@ npx cypress open
 Select the amazon.cy.js test from the Cypress UI and run the tests.
 
 Run Tests in Headless Mode: To run the tests in the terminal:
-npx cypress run --spec cypress/tests/amazon.cy.js
+npx cypress run --spec cypress\e2e\integration\amazon\amazon.cy.js
 Backend API Automation
 The API tests interact with JSONPlaceholder for simulating CRUD operations on posts. To run the API tests:
 
 Run the API Tests:
-npx cypress run --spec cypress/tests/apiTests.cy.js
+npx cypress run --spec cypress\e2e\integration\apiTesting\apiTests.cy.js
 
 API Endpoints Used:
 GET /posts - Fetch all posts
