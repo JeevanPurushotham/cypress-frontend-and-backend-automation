@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "axios": "^1.7.7",
+    "chai": "^5.1.1",
+    "cypress": "^13.14.2"
+  }
+}

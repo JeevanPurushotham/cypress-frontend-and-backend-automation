@@ -1,7 +1,7 @@
-const { expect } = require('chai');
-const { createPost, getPostById, updatePost, deletePost, getPosts } = require('../../utils/apiClient');
+import { expect } from 'chai';
+import { createPost, getPostById, updatePost, deletePost, getPosts } from '../../utils/apiClient';
 
-describe('CRUD Operations on Posts', () => {
+describe('CRUD Operations on Positive testcases', () => {
   
   let createdPostId;
 
@@ -74,8 +74,21 @@ describe('CRUD Operations on Posts', () => {
       });
   });
 
-});     
+  it('should validate the first post in the posts list (GET /posts)', async () => {
+    const response = await getPosts();
+    expect(response.status).to.equal(200);
+    expect(response.data[0]).to.have.keys(['id', 'title', 'body', 'userId']);
+  });
 
+  it('should create a post with maximum field lengths (POST /posts)', async () => {
+    const maxLengthPost = { title: 'a'.repeat(255), body: 'b'.repeat(1000), userId: 1 };
+    const response = await createPost(maxLengthPost);
+    expect(response.status).to.equal(201);
+    expect(response.data).to.include(maxLengthPost);
+  });
+
+});     
+4
 describe('CRUD Operations on Posts (Negative Tests)', () => {
   
   let invalidPostId = 999999; // Assume this ID doesn't exist
@@ -123,5 +136,25 @@ describe('CRUD Operations on Posts (Negative Tests)', () => {
       console.error('Delete Post Error:', error.response.data);
     }
   });
+
+  it('should fail to create a post with invalid userId (POST /posts)', async () => {
+    const invalidUserIdPost = { title: 'foo', body: 'bar', userId: 'invalid' };
+    try {
+      await createPost(invalidUserIdPost);
+    } catch (error) {
+      expect(error.response.status).to.equal(400);
+    }
+  });
+
+  it('should fail to create a post with a large body (POST /posts)', async () => {
+    const largeBodyPost = { title: 'foo', body: 'a'.repeat(10001), userId: 1 }; // Assuming limit is 10000 chars
+    try {
+      await createPost(largeBodyPost);
+    } catch (error) {
+      expect(error.response.status).to.equal(413);
+    }
+  });
+
+
 
 });
